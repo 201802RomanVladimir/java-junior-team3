@@ -4,6 +4,7 @@ import message.Message;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class ClientApp {
     public static void main(String[] args) {
@@ -12,10 +13,16 @@ public class ClientApp {
                  ObjectOutputStream out = new ObjectOutputStream(outputStream);
                  InputStream inputStream = socket.getInputStream();
                  ObjectInputStream in = new ObjectInputStream(inputStream)){
-                 out.writeObject(new Message("что то"));
-                 System.out.println(in.readObject());
-//                out.writeObject(new IntMessage(7));
-                //out.flush();
+
+                while(true) {
+                    Scanner scanner = new Scanner(System.in);
+                    String line = scanner.nextLine();
+                    out.writeObject(new Message(line));
+
+                    System.out.println(in.readObject());
+                }
+
+
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
