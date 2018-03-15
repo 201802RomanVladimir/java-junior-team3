@@ -1,10 +1,8 @@
 package client;
 
-import message.Message;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class ClientReciever implements Runnable {
     Socket socket;
@@ -15,7 +13,7 @@ public class ClientReciever implements Runnable {
 
     @Override
     public void run() {
-        System.out.println(1);
+        System.out.println("r");
         try (InputStream inputStream = socket.getInputStream();
              ObjectInputStream in = new ObjectInputStream(inputStream)) {
 

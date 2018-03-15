@@ -15,7 +15,7 @@ public class ClientTransmitter implements Runnable {
 
     @Override
     public void run() {
-        System.out.println(2);
+        System.out.println("t");
         try (OutputStream outputStream = socket.getOutputStream();
              ObjectOutputStream out = new ObjectOutputStream(outputStream)) {
 

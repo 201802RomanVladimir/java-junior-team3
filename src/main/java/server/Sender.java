@@ -3,9 +3,6 @@ package server;
 import message.Message;
 
 import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.net.Socket;
 import java.util.HashSet;
 
 public class Sender {
@@ -15,14 +12,11 @@ public class Sender {
         this.sessionPool = sessionPool;
     }
 
-    public void handleNewMsg(Message message) {
-        for (ClientSession elem : sessionPool) {
-            try {
-                elem.getOutputStream().writeObject(message);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
 
+    public void handleNewMsg(Message message) throws IOException {
+        System.out.println(sessionPool);
+        for (ClientSession elem : sessionPool) {
+            elem.getOutputStream().writeObject(message);
         }
     }
 }

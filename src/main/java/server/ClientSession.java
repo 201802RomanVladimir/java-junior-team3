@@ -6,15 +6,14 @@ import java.io.*;
 import java.net.Socket;
 
 public class ClientSession implements Runnable {
-    Socket socket;
-    Sender sender;
-    ObjectOutputStream out;
+    private Socket socket;
+    private ObjectOutputStream out;
+    private MessageHandler messageHandler;
 
-    public ClientSession(Socket newSocket, Sender sender) throws IOException {
+    public ClientSession(Socket newSocket, MessageHandler messageHandler) throws IOException {
         socket = newSocket;
-        this.sender = sender;
         out = new ObjectOutputStream(socket.getOutputStream());
-        System.out.println(out);
+        this.messageHandler = messageHandler;
     }
 
     @Override
@@ -24,7 +23,7 @@ public class ClientSession implements Runnable {
             try {
                 while (true) {
                     Message message = (Message) in.readObject();
-                    sender.handleNewMsg(message);
+                    messageHandler.handleMsg(message,out);
                 }
             } catch (EOFException e) {
             }

@@ -1,10 +1,8 @@
 package client;
 
-import message.Message;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class ClientApp {
     public static void main(String[] args) {
