@@ -12,23 +12,31 @@ public class ClientSession implements Runnable {
 
     public ClientSession(Socket newSocket, MessageHandler messageHandler) throws IOException {
         socket = newSocket;
-        out = new ObjectOutputStream(socket.getOutputStream());
         this.messageHandler = messageHandler;
     }
 
     @Override
     public void run() {
         try (InputStream inputStream = socket.getInputStream();
-             ObjectInputStream in = new ObjectInputStream(inputStream)) {
+             ObjectInputStream in = new ObjectInputStream(inputStream);
+             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream())) {
             try {
+                this.out = out;
                 while (true) {
                     Message message = (Message) in.readObject();
-                    messageHandler.handleMsg(message,out);
+                    messageHandler.handleMsg(message, out);
                 }
             } catch (EOFException e) {
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                socket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 
