@@ -1,9 +1,6 @@
 package server;
 
-import java.io.EOFException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -13,9 +10,13 @@ public class Acceptor {
             while (true) { //Session loop
                 try (Socket clientSession = portListener.accept();
                      InputStream inputStream = clientSession.getInputStream();
-                     ObjectInputStream in = new ObjectInputStream(inputStream)) {
+                     ObjectInputStream in = new ObjectInputStream(inputStream);
+                   /*  OutputStream outputStream = clientSession.getOutputStream();
+                     ObjectOutputStream out = new ObjectOutputStream(outputStream)*/) {
                     try {
                         while (true) {
+                            System.out.println(in.readObject());
+                            //in.readObject();
                            // loggerController.log((Message) in.readObject(), new PrefixFormatVisitor());
                         }
                     }
