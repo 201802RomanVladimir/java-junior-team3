@@ -16,6 +16,7 @@ public class Sender {
     public void handleNewMsg(String message) throws IOException {
         for (ClientSession elem : sessionPool) {
             elem.getOutputStream().println(message);
+            elem.getOutputStream().flush();
         }
     }
 }

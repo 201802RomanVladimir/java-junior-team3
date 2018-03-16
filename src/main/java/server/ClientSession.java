@@ -23,7 +23,12 @@ public class ClientSession implements Runnable {
             try {
                 this.out = out;
                 while (true) {
-                    messageHandler.handleMsg(in.readLine(), out);
+                    String temp = in.readLine();
+
+                    System.out.println(temp);
+
+                    messageHandler.handleMsg(temp, out);
+//                    messageHandler.handleMsg(in.readLine(), out);
                 }
             } catch (EOFException e) {
             }

@@ -37,7 +37,10 @@ public class ClientTransmitter implements Runnable {
             while (true) {
                 String line = scanner.nextLine();
                 if(inputMessageFilter.isCorrect(line)){
+
+//                    System.out.println(line+" ["+ dateFormat.format(new Date()) + "]");
                     printWriter.println(line+" ["+ dateFormat.format(new Date()) + "]");
+                    printWriter.flush();
 
                 }
             }

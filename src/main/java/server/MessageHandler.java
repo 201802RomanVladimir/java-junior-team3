@@ -35,12 +35,14 @@ public class MessageHandler {
                 }
                 storage.saveMessage(modify);
                 sender.handleNewMsg(modify);
+                break;
             }
             case ("/hist"): {
                 storage.outputHistory(out);
+                break;
             }
             default: {
-
+                break;
             }
         }
 

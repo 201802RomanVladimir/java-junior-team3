@@ -8,6 +8,7 @@ public class FileStorage implements Storage {
     public void saveMessage(String s) {
         try(PrintWriter out = new PrintWriter(new FileOutputStream(file,true))) {
             out.println(s);
+            out.flush();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -20,6 +21,7 @@ public class FileStorage implements Storage {
             String line = null;
             while ((line = in.readLine()) !=null) {
                 out.println(line);
+                out.flush();
             }
 
         } catch (FileNotFoundException e) {

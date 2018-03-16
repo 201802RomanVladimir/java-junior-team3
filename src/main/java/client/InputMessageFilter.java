@@ -7,6 +7,11 @@ public class InputMessageFilter {
     String[] commandsArray = {"/hist", "/snd"};
 
     public boolean isCorrect(String line) {
+        if(line.equals("/hist")){
+            return true;
+        }
+
+
         int index = line.indexOf(" ");
         if (index == -1) return  false;
 
