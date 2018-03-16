@@ -40,11 +40,6 @@ class FileStorage implements Storage {
                     out.flush();
                 }
             }
-
-         //   while ((line = in.readLine()) != null) {
-           //     out.println(line);
-             //   out.flush();
-            //}
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

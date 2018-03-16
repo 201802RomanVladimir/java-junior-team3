@@ -7,15 +7,9 @@ import java.io.PrintWriter;
 import java.util.Set;
 
 class MessageHandler {
-    private static MessageHandler ourInstance;
-    public static MessageHandler getInstance(Set<Session> sessionPool)
-    {
-        if (ourInstance == null)
-            ourInstance = new MessageHandler(sessionPool);
-        return ourInstance;
-    }
-
     private Storage storage = new FileStorage();
+
+
     private Set<Session> sessionPool;
     private Sender sender;
 
@@ -24,8 +18,20 @@ class MessageHandler {
         sender = new BroadcastSender(this.sessionPool);
     }
 
+    private static MessageHandler ourInstance;
+    public static MessageHandler getInstance(Set<Session> sessionPool)
+    {
+        if (ourInstance == null)
+            ourInstance = new MessageHandler(sessionPool);
+        return ourInstance;
+    }
+
+    public Set<Session> getSessionPool() {
+        return sessionPool;
+    }
+
     public synchronized void handleMsg(String message, PrintWriter out) throws IOException {
-        String command = CommandHelper.TryParseCommand(message);
+        String command = CommandHelper.tryParseCommand(message);
         if (command == null) {
             return;
         }

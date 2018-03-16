@@ -4,7 +4,7 @@ public class CommandHelper {
     private CommandHelper() {
     }
 
-    public static String TryParseCommand(String message) {
+    public static String tryParseCommand(String message) {
         String tmp = message + " ";
         int index = tmp.indexOf(" ");
         if (index == -1) {

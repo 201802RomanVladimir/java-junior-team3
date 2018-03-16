@@ -1,5 +1,8 @@
 package server;
 
+/***
+ * Сервер чата
+ */
 public class ChatServerApp {
     private ChatServerApp() {
     }

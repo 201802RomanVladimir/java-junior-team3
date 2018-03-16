@@ -12,6 +12,7 @@ class ClientAcceptor implements Acceptor {
     private Set<Session> sessionPool = new HashSet<>(1000);
     private MessageHandler messageHandler = MessageHandler.getInstance(sessionPool);
 
+    @Override
     public void start() {
         try (ServerSocket portListener = new ServerSocket(7779)) {
             while (true) { //Session loop
