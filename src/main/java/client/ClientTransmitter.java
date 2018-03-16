@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-class ClientTransmitter implements Runnable {
+class ClientTransmitter implements Transmitter {
     private Socket socket;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yy hh:mm");
     private InputMessageFilter inputMessageFilter = new InputMessageFilter();

@@ -4,7 +4,7 @@ package client;
 import java.io.*;
 import java.net.Socket;
 
-class ClientReciever implements Runnable {
+class ClientReciever implements Reciever {
     private Socket socket;
 
     ClientReciever(Socket socket) {
