@@ -4,17 +4,24 @@ import helper.CommandHelper;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashSet;
+import java.util.Set;
 
 class MessageHandler {
+    private static MessageHandler ourInstance;
+    public static MessageHandler getInstance(Set<Session> sessionPool)
+    {
+        if (ourInstance == null)
+            ourInstance = new MessageHandler(sessionPool);
+        return ourInstance;
+    }
 
     private Storage storage = new FileStorage();
-    private HashSet<Session> sessionPool;
+    private Set<Session> sessionPool;
     private Sender sender;
 
-    public MessageHandler(HashSet<Session> sessionPool) {
+    private MessageHandler(Set<Session> sessionPool) {
         this.sessionPool = sessionPool;
-        sender = new BroadcastSender(sessionPool);
+        sender = new BroadcastSender(this.sessionPool);
     }
 
     public synchronized void handleMsg(String message, PrintWriter out) throws IOException {
