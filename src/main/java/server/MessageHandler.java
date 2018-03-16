@@ -19,7 +19,7 @@ class MessageHandler {
 
     public synchronized void handleMsg(String message, PrintWriter out) throws IOException {
         String command = CommandHelper.TryParseCommand(message);
-        if (command == null){
+        if (command == null) {
             return;
         }
 
@@ -29,21 +29,20 @@ class MessageHandler {
                 break;
             }
             case "/hist": {
-                handleHistoryCommand(out);
-                message = message.replaceAll("\\s+", " ");
-                String[] s = message.split(" ");
-                if (s.length == 3) {
-                    storage.outputHistory(out,1);
-                } else {
-                    storage.outputHistory(out,Integer.valueOf(s[1]));
-                }
+                handleHistoryCommand(out, message);
                 break;
             }
         }
     }
 
-    private void handleHistoryCommand(PrintWriter out) throws IOException {
-        storage.outputHistory(out);
+    private void handleHistoryCommand(PrintWriter out, String message) throws IOException {
+        message = message.replaceAll("\\s+", " ");
+        String[] s = message.split(" ");
+        if (s.length == 3) {
+            storage.outputHistory(out, 1);
+        } else {
+            storage.outputHistory(out, Integer.valueOf(s[1]));
+        }
     }
 
     private void handleSendCommand(String message) {
@@ -54,9 +53,9 @@ class MessageHandler {
 
     private String getFormattedString(String message) {
         String[] parts = message.split(" ");
-        StringBuilder formattedString = new StringBuilder(parts[parts.length-2]);
-        formattedString.append(" ").append(parts[parts.length-1]).append(" ");
-        for (int i = 1; i < parts.length-2; i++) {
+        StringBuilder formattedString = new StringBuilder(parts[parts.length - 2]);
+        formattedString.append(" ").append(parts[parts.length - 1]).append(" ");
+        for (int i = 1; i < parts.length - 2; i++) {
             formattedString.append(parts[i]);
         }
         return formattedString.toString();
