@@ -9,10 +9,14 @@ class InputMessageFilter {
     public boolean isCorrect(String line) {
         String tmp = line + " ";
         int index = tmp.indexOf(" ");
-        if (index == -1) return  false;
+        if (index == -1) {
+            return  false;
+        }
 
         String command = CommandHelper.TryParseCommand(line);
-        if (command == null) return false;
+        if (command == null) {
+            return false;
+        }
 
         String message = line.substring(index, line.length());
         if(message.length() > 150){
@@ -20,11 +24,14 @@ class InputMessageFilter {
             return false;
         }
 
+
         for(String cmd: commandsArray){
             if(cmd.equals(command)){
                 return true;
             }
+
         }
+        System.out.println("Wrong command");
 
         return false;
     }

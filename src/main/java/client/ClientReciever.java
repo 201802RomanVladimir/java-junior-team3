@@ -15,11 +15,11 @@ class ClientReciever implements Runnable {
     public void run() {
         try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream())))
               {
-
-            while (true) {
-                System.out.println(in.readLine());
+            String s;
+            while ((s = in.readLine()) != null) {
+                System.out.println(s);
             }
-
+            System.out.println("Server is down!");
 
         } catch (IOException e) {
             e.printStackTrace();
