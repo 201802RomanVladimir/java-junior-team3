@@ -24,6 +24,7 @@ public class InputMessageFilter {
             return false;
         }
 
+
         for(String cmd: commandsArray){
             if(cmd.equals(command)){
                 return true;
