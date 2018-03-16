@@ -5,5 +5,5 @@ import java.io.PrintWriter;
 
 interface Storage {
     void saveMessage(String s);
-    void outputHistory(PrintWriter out) throws IOException;
+    void outputHistory(PrintWriter out, Integer integer) throws IOException;
 }

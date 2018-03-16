@@ -31,7 +31,13 @@ class MessageHandler {
                 break;
             }
             case "/hist": {
-                storage.outputHistory(out);
+                message = message.replaceAll("\\s+", " ");
+                String[] s = message.split(" ");
+                if (s.length == 3) {
+                    storage.outputHistory(out,1);
+                } else {
+                    storage.outputHistory(out,Integer.valueOf(s[1]));
+                }
                 break;
             }
         }
