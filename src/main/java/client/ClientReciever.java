@@ -13,18 +13,15 @@ public class ClientReciever implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("r");
-        try (InputStream inputStream = socket.getInputStream();
-             ObjectInputStream in = new ObjectInputStream(inputStream)) {
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream())))
+              {
 
             while (true) {
-                System.out.println(in.readObject());
+                System.out.println(in.readLine());
             }
 
 
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

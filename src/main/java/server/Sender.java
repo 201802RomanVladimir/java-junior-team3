@@ -13,10 +13,10 @@ public class Sender {
     }
 
 
-    public void handleNewMsg(Message message) throws IOException {
-        System.out.println(sessionPool);
+    public void handleNewMsg(String message) throws IOException {
         for (ClientSession elem : sessionPool) {
-            elem.getOutputStream().writeObject(message);
+            elem.getOutputStream().println(message);
+            elem.getOutputStream().flush();
         }
     }
 }

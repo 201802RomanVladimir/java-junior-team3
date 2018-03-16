@@ -1,16 +1,18 @@
 package server;
 
+import helper.CommandHelper;
 import message.Message;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 public class MessageHandler {
 
-    private List<Message> historyList = new ArrayList<>();
+    Storage storage = new FileStorage();
     private HashSet<ClientSession> sessionPool;
     Sender sender;
 
@@ -19,21 +21,31 @@ public class MessageHandler {
         sender = new Sender(sessionPool);
     }
 
-    public synchronized void handleMsg(Message message, ObjectOutputStream out) throws IOException {
-        switch (message.getCommand()) {
+    public synchronized void handleMsg(String message, PrintWriter out) throws IOException {
+        String command = CommandHelper.TryParseCommand(message);
+        if (command == null) return;
+
+
+        switch (command) {
             case ("/snd"): {
-                historyList.add(message);
-                sender.handleNewMsg(message);
+                String[] parts = message.split(" ");
+                String modify = parts[parts.length-2] + " " + parts[parts.length-1] + "  ";
+                for (int i = 1; i < parts.length-2; i++) {
+                    modify += parts[i];
+                }
+                storage.saveMessage(modify);
+                sender.handleNewMsg(modify);
                 break;
             }
             case ("/hist"): {
-                for (Message elem : historyList) {
-                    out.writeObject(elem);
-                }
+                storage.outputHistory(out);
                 break;
             }
-
+            default: {
+                break;
+            }
         }
 
     }
+
 }
