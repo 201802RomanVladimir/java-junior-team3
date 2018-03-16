@@ -1,6 +1,7 @@
 package message;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Message implements Serializable {
@@ -10,6 +11,7 @@ public class Message implements Serializable {
     private String command;
     private String message = "";
     private Date date;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yy hh:mm");
 
     public Message(String text) {
         parse(text);
@@ -22,7 +24,7 @@ public class Message implements Serializable {
 
     @Override
     public String toString() {
-        return date + " " + message;
+        return dateFormat.format(date) + " " + message;
     }
 
     private void parse(String text) {
