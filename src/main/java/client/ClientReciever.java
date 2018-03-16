@@ -15,8 +15,8 @@ class ClientReciever implements Runnable {
     public void run() {
         try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream())))
               {
-
-            while (true) {
+            String s = in.readLine();
+            while (s != null) {
                 System.out.println(in.readLine());
             }
 
