@@ -12,7 +12,7 @@ import java.util.List;
 
 public class MessageHandler {
 
-    private List<Message> historyList = new ArrayList<>();
+    Storage storage = new FileStorage();
     private HashSet<ClientSession> sessionPool;
     Sender sender;
 
@@ -25,19 +25,25 @@ public class MessageHandler {
         String command = CommandHelper.TryParseCommand(message);
         if (command == null) return;
 
+
         switch (command) {
             case ("/snd"): {
-                historyList.add(message);
-                sender.handleNewMsg(message);
-                break;
+                String[] parts = message.split(" ");
+                String modify = parts[parts.length-2] + " " + parts[parts.length-1] + "  ";
+                for (int i = 1; i < parts.length-2; i++) {
+                    modify += parts[i];
+                }
+                storage.saveMessage(modify);
+                sender.handleNewMsg(modify);
             }
             case ("/hist"): {
-                for (Message elem : historyList) {
-                    out.writeObject(elem);
-                }
-                break;
+                storage.outputHistory(out);
+            }
+            default: {
+
             }
         }
 
     }
+
 }

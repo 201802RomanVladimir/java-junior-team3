@@ -13,7 +13,6 @@ public class ClientReciever implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("r");
         try (InputStream inputStream = socket.getInputStream();
              ObjectInputStream in = new ObjectInputStream(inputStream)) {
 

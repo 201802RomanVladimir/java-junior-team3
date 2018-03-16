@@ -12,7 +12,7 @@ public class ClientTransmitter implements Runnable {
 
     private Socket socket;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yy hh:mm");
-    private InputMessageFilter inputMessageFilter;
+    private InputMessageFilter inputMessageFilter = new InputMessageFilter();
 
 
     public ClientTransmitter(Socket socket) {
@@ -28,16 +28,16 @@ public class ClientTransmitter implements Runnable {
 
             Scanner scanner = new Scanner(System.in);
 
-            System.out.print("Enter you nickname: ");
-            String userName = "/chid " + scanner.nextLine();
-
-            System.out.print("Choose chatroom: ");
-            String room = "/chroom " + scanner.nextLine();
+//            System.out.print("Enter you nickname: ");
+//            String userName = "/chid " + scanner.nextLine();
+//
+//            System.out.print("Choose chatroom: ");
+//            String room = "/chroom " + scanner.nextLine();
 
             while (true) {
                 String line = scanner.nextLine();
                 if(inputMessageFilter.isCorrect(line)){
-                    printWriter.println(line+" "+ dateFormat.format(new Date()));
+                    printWriter.println(line+" ["+ dateFormat.format(new Date()) + "]");
 
                 }
             }
