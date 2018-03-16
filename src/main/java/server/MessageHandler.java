@@ -13,7 +13,7 @@ class MessageHandler {
 
     public MessageHandler(HashSet<Session> sessionPool) {
         this.sessionPool = sessionPool;
-        sender = new Sender(sessionPool);
+        sender = new BroadcastSender(sessionPool);
     }
 
     public synchronized void handleMsg(String message, PrintWriter out) throws IOException {

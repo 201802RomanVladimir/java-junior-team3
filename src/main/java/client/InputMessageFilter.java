@@ -25,9 +25,9 @@ class InputMessageFilter {
             if(cmd.equals(command)){
                 return true;
             }
-            System.out.println("Wrong command");
 
         }
+        System.out.println("Wrong command");
 
         return false;
     }
