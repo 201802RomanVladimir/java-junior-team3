@@ -22,14 +22,29 @@ class FileStorage implements Storage {
     }
 
     @Override
-    public void outputHistory(PrintWriter out) throws IOException {
+    public void outputHistory(PrintWriter out, Integer pageNumber) throws IOException {
         lock.readLock().lock();
         try(BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
             String line;
-            while ((line = in.readLine()) != null) {
-                out.println(line);
-                out.flush();
+            for (int i = 0; i < (pageNumber-1)*100; i++) {
+                line = in.readLine();
+                if (line == null) {
+                    out.println("Page not found");
+                    out.flush();
+                    return;
+                }
             }
+            for (int i = 0; i < 100 ; i++) {
+                if ((line = in.readLine()) != null) {
+                    out.println(line);
+                    out.flush();
+                }
+            }
+
+         //   while ((line = in.readLine()) != null) {
+           //     out.println(line);
+             //   out.flush();
+            //}
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
