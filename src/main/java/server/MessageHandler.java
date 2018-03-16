@@ -1,43 +1,46 @@
 package server;
 
 import helper.CommandHelper;
-import java.io.IOException;
+
 import java.io.PrintWriter;
 import java.util.HashSet;
 
 class MessageHandler {
 
     private Storage storage = new FileStorage();
-    private HashSet<Session> sessionPool;
     private Sender sender;
 
-    public MessageHandler(HashSet<Session> sessionPool) {
-        this.sessionPool = sessionPool;
+    MessageHandler(HashSet<Session> sessionPool) {
         sender = new Sender(sessionPool);
     }
 
-    public synchronized void handleMsg(String message, PrintWriter out) throws IOException {
+    public synchronized void handleMsg(String message, PrintWriter out) {
         String command = CommandHelper.TryParseCommand(message);
-        if (command == null) return;
+        if (command == null){
+            return;
+        }
 
         switch (command) {
-            case ("/snd"): {
-                String[] parts = message.split(" ");
-                String modify = parts[parts.length-2] + " " + parts[parts.length-1] + "  ";
-                for (int i = 1; i < parts.length-2; i++) {
-                    modify += parts[i];
-                }
-                storage.saveMessage(modify);
-                sender.handleNewMsg(modify);
+            case "/snd": {
+                String formattedString = getFormattedString(message);
+                storage.saveMessage(formattedString);
+                sender.handleNewMsg(formattedString);
                 break;
             }
-            case ("/hist"): {
+            case "/hist": {
                 storage.outputHistory(out);
                 break;
             }
-            default: {
-                break;
-            }
         }
+    }
+
+    private String getFormattedString(String message) {
+        String[] parts = message.split(" ");
+        StringBuilder formattedString = new StringBuilder(parts[parts.length-2]);
+        formattedString.append(" ").append(parts[parts.length-1]).append(" ");
+        for (int i = 1; i < parts.length-2; i++) {
+            formattedString.append(parts[i]);
+        }
+        return formattedString.toString();
     }
 }

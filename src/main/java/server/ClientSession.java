@@ -5,7 +5,7 @@ import java.net.Socket;
 
 class ClientSession implements Session {
     private Socket socket;
-    private PrintWriter out;
+    private PrintWriter writer;
     private MessageHandler messageHandler;
 
     ClientSession(Socket newSocket, MessageHandler messageHandler) {
@@ -18,17 +18,11 @@ class ClientSession implements Session {
         try (InputStream inputStream = socket.getInputStream();
              BufferedReader in =  new BufferedReader(new InputStreamReader(inputStream));
              PrintWriter out = new PrintWriter(socket.getOutputStream())) {
-            try {
-                this.out = out;
-                while (true) {
-                    String temp = in.readLine();
-
-                    System.out.println(temp);
-
-                    messageHandler.handleMsg(temp, out);
-//                    messageHandler.handleMsg(in.readLine(), out);
-                }
-            } catch (EOFException e) {
+            writer = out;
+            while (true) {
+                String temp = in.readLine();
+                System.out.println(temp);
+                messageHandler.handleMsg(temp, out);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -41,7 +35,8 @@ class ClientSession implements Session {
         }
     }
 
+    @Override
     public PrintWriter getOutputStream() {
-        return out;
+        return writer;
     }
 }

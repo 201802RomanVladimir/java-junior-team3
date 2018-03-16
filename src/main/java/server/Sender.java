@@ -1,11 +1,11 @@
 package server;
 
-import java.util.HashSet;
+import java.util.Set;
 
 class Sender {
-    private HashSet<Session> sessionPool;
+    private Set<Session> sessionPool;
 
-    public Sender(HashSet<Session> sessionPool) {
+    Sender(Set<Session> sessionPool) {
         this.sessionPool = sessionPool;
     }
 
