@@ -27,6 +27,10 @@ class ClientSession implements Session {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
+            synchronized (messageHandler.getSessionPool()) {
+                messageHandler.getSessionPool().remove(this);
+            }
+
             try {
                 socket.close();
             } catch (IOException e) {

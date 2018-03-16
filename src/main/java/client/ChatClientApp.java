@@ -5,6 +5,9 @@ import java.net.Socket;
 
 import static java.lang.Runtime.getRuntime;
 
+/***
+ * Клиент чата
+ */
 public class ChatClientApp {
     private ChatClientApp() {
     }

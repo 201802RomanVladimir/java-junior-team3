@@ -13,7 +13,7 @@ class InputMessageFilter {
             return  false;
         }
 
-        String command = CommandHelper.TryParseCommand(line);
+        String command = CommandHelper.tryParseCommand(line);
         if (command == null) {
             return false;
         }
