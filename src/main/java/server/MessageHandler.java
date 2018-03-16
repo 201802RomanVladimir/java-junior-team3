@@ -1,22 +1,17 @@
 package server;
 
 import helper.CommandHelper;
-import message.Message;
-
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 
-public class MessageHandler {
+class MessageHandler {
 
-    Storage storage = new FileStorage();
-    private HashSet<ClientSession> sessionPool;
-    Sender sender;
+    private Storage storage = new FileStorage();
+    private HashSet<Session> sessionPool;
+    private Sender sender;
 
-    public MessageHandler(HashSet<ClientSession> sessionPool) {
+    public MessageHandler(HashSet<Session> sessionPool) {
         this.sessionPool = sessionPool;
         sender = new Sender(sessionPool);
     }
@@ -24,7 +19,6 @@ public class MessageHandler {
     public synchronized void handleMsg(String message, PrintWriter out) throws IOException {
         String command = CommandHelper.TryParseCommand(message);
         if (command == null) return;
-
 
         switch (command) {
             case ("/snd"): {
@@ -45,7 +39,5 @@ public class MessageHandler {
                 break;
             }
         }
-
     }
-
 }

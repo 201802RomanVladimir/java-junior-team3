@@ -4,10 +4,10 @@ package client;
 import java.io.*;
 import java.net.Socket;
 
-public class ClientReciever implements Runnable {
-    Socket socket;
+class ClientReciever implements Runnable {
+    private Socket socket;
 
-    public ClientReciever(Socket socket) {
+    ClientReciever(Socket socket) {
         this.socket = socket;
     }
 

@@ -1,7 +1,5 @@
 package client;
 
-import message.Message;
-
 import java.io.*;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
@@ -25,7 +23,6 @@ public class ClientTransmitter implements Runnable {
              PrintWriter printWriter = new PrintWriter(
                      new OutputStreamWriter(socket.getOutputStream()))
         ){
-
             Scanner scanner = new Scanner(System.in);
 
 //            System.out.print("Enter you nickname: ");

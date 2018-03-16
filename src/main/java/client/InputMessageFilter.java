@@ -2,17 +2,13 @@ package client;
 
 import helper.CommandHelper;
 
-public class InputMessageFilter {
+class InputMessageFilter {
 
-    String[] commandsArray = {"/hist", "/snd"};
+    private String[] commandsArray = {"/hist", "/snd"};
 
     public boolean isCorrect(String line) {
-        if(line.equals("/hist")){
-            return true;
-        }
-
-
-        int index = line.indexOf(" ");
+        String tmp = line + " ";
+        int index = tmp.indexOf(" ");
         if (index == -1) return  false;
 
         String command = CommandHelper.TryParseCommand(line);
@@ -32,9 +28,5 @@ public class InputMessageFilter {
         }
 
         return false;
-
-
-
-
     }
 }
