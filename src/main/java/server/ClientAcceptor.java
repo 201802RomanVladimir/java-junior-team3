@@ -2,6 +2,7 @@ package server;
 
 import java.io.*;
 import java.net.ServerSocket;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.Executor;
@@ -17,8 +18,10 @@ class ClientAcceptor implements Acceptor {
         try (ServerSocket portListener = new ServerSocket(7779)) {
             while (true) { //Session loop
                 Session session = new ClientSession(portListener.accept(), messageHandler);
-                if (sessionPool.add(session)) {
-                    sessionsThreadPool.execute(session);
+                synchronized (sessionPool) {
+                    if (sessionPool.add(session)) {
+                        sessionsThreadPool.execute(session);
+                    }
                 }
             }
         } catch (IOException e) {
