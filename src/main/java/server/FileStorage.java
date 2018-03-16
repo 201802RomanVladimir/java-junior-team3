@@ -41,10 +41,6 @@ class FileStorage implements Storage {
                 }
             }
 
-         //   while ((line = in.readLine()) != null) {
-           //     out.println(line);
-             //   out.flush();
-            //}
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
