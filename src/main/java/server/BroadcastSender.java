@@ -16,5 +16,4 @@ class BroadcastSender implements Sender {
             elem.getOutputStream().flush();
         }
     }
-
 }
