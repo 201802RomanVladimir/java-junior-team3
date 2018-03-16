@@ -2,6 +2,7 @@ package server;
 
 import helper.CommandHelper;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashSet;
 
@@ -16,7 +17,7 @@ class MessageHandler {
         sender = new BroadcastSender(sessionPool);
     }
 
-    public synchronized void handleMsg(String message, PrintWriter out) {
+    public synchronized void handleMsg(String message, PrintWriter out) throws IOException {
         String command = CommandHelper.TryParseCommand(message);
         if (command == null){
             return;
