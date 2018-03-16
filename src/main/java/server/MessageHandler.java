@@ -25,12 +25,11 @@ class MessageHandler {
 
         switch (command) {
             case "/snd": {
-                String formattedString = getFormattedString(message);
-                storage.saveMessage(formattedString);
-                sender.handleNewMsg(formattedString);
+                handleSendCommand(message);
                 break;
             }
             case "/hist": {
+                handleHistoryCommand(out);
                 message = message.replaceAll("\\s+", " ");
                 String[] s = message.split(" ");
                 if (s.length == 3) {
@@ -41,6 +40,16 @@ class MessageHandler {
                 break;
             }
         }
+    }
+
+    private void handleHistoryCommand(PrintWriter out) throws IOException {
+        storage.outputHistory(out);
+    }
+
+    private void handleSendCommand(String message) {
+        String formattedString = getFormattedString(message);
+        storage.saveMessage(formattedString);
+        sender.handleNewMsg(formattedString);
     }
 
     private String getFormattedString(String message) {
