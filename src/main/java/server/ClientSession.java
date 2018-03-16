@@ -7,7 +7,7 @@ import java.net.Socket;
 
 public class ClientSession implements Runnable {
     private Socket socket;
-    private ObjectOutputStream out;
+    private PrintWriter out;
     private MessageHandler messageHandler;
 
     public ClientSession(Socket newSocket, MessageHandler messageHandler) throws IOException {
@@ -18,17 +18,16 @@ public class ClientSession implements Runnable {
     @Override
     public void run() {
         try (InputStream inputStream = socket.getInputStream();
-             ObjectInputStream in = new ObjectInputStream(inputStream);
-             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream())) {
+             BufferedReader in =  new BufferedReader(new InputStreamReader(inputStream));
+             PrintWriter out = new PrintWriter(socket.getOutputStream())) {
             try {
                 this.out = out;
                 while (true) {
-                    Message message = (Message) in.readObject();
-                    messageHandler.handleMsg(message, out);
+                    messageHandler.handleMsg(in.readLine(), out);
                 }
             } catch (EOFException e) {
             }
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
@@ -40,7 +39,7 @@ public class ClientSession implements Runnable {
         }
     }
 
-    public ObjectOutputStream getOutputStream() {
+    public PrintWriter getOutputStream() {
         return out;
     }
 }
