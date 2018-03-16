@@ -25,16 +25,24 @@ class MessageHandler {
 
         switch (command) {
             case "/snd": {
-                String formattedString = getFormattedString(message);
-                storage.saveMessage(formattedString);
-                sender.handleNewMsg(formattedString);
+                handleSendCommand(message);
                 break;
             }
             case "/hist": {
-                storage.outputHistory(out);
+                handleHistoryCommand(out);
                 break;
             }
         }
+    }
+
+    private void handleHistoryCommand(PrintWriter out) throws IOException {
+        storage.outputHistory(out);
+    }
+
+    private void handleSendCommand(String message) {
+        String formattedString = getFormattedString(message);
+        storage.saveMessage(formattedString);
+        sender.handleNewMsg(formattedString);
     }
 
     private String getFormattedString(String message) {

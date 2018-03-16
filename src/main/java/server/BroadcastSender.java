@@ -1,11 +1,11 @@
 package server;
 
-import java.util.HashSet;
+import java.util.Set;
 
 class BroadcastSender implements Sender {
-    private HashSet<Session> sessionPool;
+    private Set<Session> sessionPool;
 
-    public BroadcastSender(HashSet<Session> sessionPool) {
+    public BroadcastSender(Set<Session> sessionPool) {
         this.sessionPool = sessionPool;
     }
 
@@ -16,5 +16,4 @@ class BroadcastSender implements Sender {
             elem.getOutputStream().flush();
         }
     }
-
 }
