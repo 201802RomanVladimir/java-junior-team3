@@ -1,7 +1,6 @@
 package server;
 
 import java.io.*;
-import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 class FileStorage implements Storage {
@@ -26,13 +25,11 @@ class FileStorage implements Storage {
     public void outputHistory(PrintWriter out) throws IOException {
         lock.readLock().lock();
         try(BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
-            String line = null;
+            String line;
             while ((line = in.readLine()) != null) {
                 out.println(line);
                 out.flush();
             }
-        } catch (FileNotFoundException e) {
-            file.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
