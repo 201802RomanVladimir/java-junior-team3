@@ -1,16 +1,14 @@
 package server;
 
-import message.Message;
-
 import java.io.*;
 import java.net.Socket;
 
-public class ClientSession implements Runnable {
+class ClientSession implements Session {
     private Socket socket;
     private PrintWriter out;
     private MessageHandler messageHandler;
 
-    public ClientSession(Socket newSocket, MessageHandler messageHandler) throws IOException {
+    ClientSession(Socket newSocket, MessageHandler messageHandler) {
         socket = newSocket;
         this.messageHandler = messageHandler;
     }
@@ -40,7 +38,6 @@ public class ClientSession implements Runnable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
     }
 

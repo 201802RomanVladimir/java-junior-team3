@@ -1,20 +1,16 @@
 package server;
 
-import message.Message;
-
-import java.io.IOException;
 import java.util.HashSet;
 
-public class Sender {
-    private HashSet<ClientSession> sessionPool;
+class Sender {
+    private HashSet<Session> sessionPool;
 
-    public Sender(HashSet<ClientSession> sessionPool) {
+    public Sender(HashSet<Session> sessionPool) {
         this.sessionPool = sessionPool;
     }
 
-
-    public void handleNewMsg(String message) throws IOException {
-        for (ClientSession elem : sessionPool) {
+    public void handleNewMsg(String message) {
+        for (Session elem : sessionPool) {
             elem.getOutputStream().println(message);
             elem.getOutputStream().flush();
         }

@@ -2,7 +2,7 @@ package server;
 
 import java.io.PrintWriter;
 
-public interface Storage {
+interface Storage {
     void saveMessage(String s);
     void outputHistory(PrintWriter out);
 }
