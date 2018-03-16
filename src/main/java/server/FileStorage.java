@@ -7,8 +7,7 @@ public class FileStorage implements Storage {
     @Override
     public void saveMessage(String s) {
         try(PrintWriter out = new PrintWriter(new FileOutputStream(file,true))) {
-            out.write(s);
-            out.append("\n");
+            out.println(s);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
